@@ -1,12 +1,14 @@
+import type { Session } from "@supabase/supabase-js";
 import { NextPage } from "next";
 import { useState, useEffect } from "react";
 import Dashboard from "../components/dashboard";
 import Login from "../components/login";
+import SessionContext from "../components/session";
 import { supabase } from "../utils/supabase";
 
 const Home: NextPage = () => {
-  const [session, setSession] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
@@ -41,7 +43,17 @@ const Home: NextPage = () => {
     };
   }, []);
 
-  return session ? <Dashboard /> : <Login />;
+
+  if (isLoading) return null;
+  if (session) {
+    return (
+      <SessionContext.Provider value={session}>
+        <Dashboard />
+      </SessionContext.Provider>   
+    )
+  } else {
+    return <Login />;
+  }
 };
 
 export default Home;

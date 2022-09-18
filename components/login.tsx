@@ -11,7 +11,7 @@ const Login: NextPage = () => {
     identity: formRef.current?.identity.value,
     password: formRef.current?.password.value,
   })
-  const login = async (event: Event) => {
+  const login = async (event: any) => {
     event.preventDefault()
     const { identity } = getFormElements();
     const {error} = await supabase.auth.signInWithOtp({
@@ -19,7 +19,7 @@ const Login: NextPage = () => {
     })
     if (error) throw error;
   }
-  const register = async (event: Event) =>{
+  const register = async (event: any) =>{
     event.preventDefault()
     console.log('register', getFormElements())
   }
