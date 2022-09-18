@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -22,5 +26,34 @@ a {
   body {
     color: white;
     background: black;
+  }
+}
+
+@layer components {
+  @keyframes xwise {
+    0% { background-position-x: 0 }
+    100% { background-position-x: 200% }
+  }
+  .rainbow {
+    @apply bg-gradient-to-r from-sky-500 via-orange-500 to-sky-500;
+    animation: xwise 15s linear infinite;
+    color: transparent;
+    background-clip: text;
+    background-position: 0 0;
+    background-size: 200% 100%;
+  }
+  .form {
+    @apply grid grid-cols-1 gap-2;
+  }
+  .form label span {
+    @apply block text-sm text-gray-400;
+  }
+  .form label input {
+    @apply rounded w-full;
+  }
+  @media (prefers-color-scheme: dark) {
+    .form label input {
+      @apply bg-black;
+    }
   }
 }
