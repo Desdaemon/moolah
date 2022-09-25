@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@supabase/auth-helpers-nextjs': ^0.2.8
+  '@supabase/auth-helpers-react': ^0.2.4
   '@supabase/supabase-js': 2.0.0-rc.10
   '@tailwindcss/forms': ^0.5.3
   '@types/node': 18.7.18
@@ -13,15 +15,19 @@ specifiers:
   postcss: ^8.4.16
   react: 18.2.0
   react-dom: 18.2.0
+  react-toastify: ^9.0.8
   tailwind: ^4.0.0
   tailwindcss: ^3.1.8
   typescript: 4.8.3
 
 dependencies:
+  '@supabase/auth-helpers-nextjs': 0.2.8
+  '@supabase/auth-helpers-react': 0.2.4
   '@supabase/supabase-js': 2.0.0-rc.10
   next: 12.3.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-toastify: 9.0.8_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.1.8
@@ -33,7 +39,7 @@ devDependencies:
   eslint-config-next: 12.3.0_irgkl5vooow2ydyo6aokmferha
   postcss: 8.4.16
   tailwind: 4.0.0
-  tailwindcss: 3.1.8_postcss@8.4.16
+  tailwindcss: 3.1.8
   typescript: 4.8.3
 
 packages:
@@ -264,6 +270,24 @@ packages:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
 
+  /@supabase/auth-helpers-nextjs/0.2.8:
+    resolution: {integrity: sha512-lGHHKkIHxEoTj6b2MJOdUGOU7rD+S/X+S0WtEnD4HD6d/Ku19UjUrR7AExE0Fa+tbTDfY1BY0o0ELn/yLNeAYQ==}
+    dependencies:
+      '@supabase/auth-helpers-shared': 0.1.4
+    dev: false
+
+  /@supabase/auth-helpers-react/0.2.4:
+    resolution: {integrity: sha512-o/6VcnkCQnlPFBOVVlmk5w37fhlalDZKxPV9w5eYwgM4uzg1FwH6b70YNuOhA3EwCcy/S8e3pKVEsKAx/LjFcA==}
+    dependencies:
+      '@supabase/auth-helpers-shared': 0.1.4
+    dev: false
+
+  /@supabase/auth-helpers-shared/0.1.4:
+    resolution: {integrity: sha512-5jsy8pxrdFIBjcpGWihBb1gsiK2WMO8lKKnNlrZCgAzTdC/rZHVnYs7zK8yaLyoHidLfp6N5ZnocJUm7ZKSABQ==}
+    dependencies:
+      jose: 4.9.3
+    dev: false
+
   /@supabase/functions-js/2.0.0-rc.1:
     resolution: {integrity: sha512-cYFaSA28NoTREM4ZrHWaxXjElfY0S8umrjoffTbmI4Rgkg8+4raBnQIi52usfr5MuFpy566vhbLNOcP9kNHjOw==}
     dependencies:
@@ -331,7 +355,7 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.1.8_postcss@8.4.16
+      tailwindcss: 3.1.8
     dev: true
 
   /@types/json5/0.0.29:
@@ -791,6 +815,11 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /clsx/1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -1961,6 +1990,10 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
+  /jose/4.9.3:
+    resolution: {integrity: sha512-f8E/z+T3Q0kA9txzH2DKvH/ds2uggcw0m3vVPSB9HrSkrQ7mojjifvS7aR8cw+lQl2Fcmx9npwaHpM/M3GD8UQ==}
+    dev: false
+
   /js-sdsl/4.1.4:
     resolution: {integrity: sha512-Y2/yD55y5jteOAmY50JbUZYwk3CP3wnLPEZnlR1w9oKhITrBEtAxwuWKebFf8hMrPMgbYwFoWK/lH2sBkErELw==}
     dev: true
@@ -2656,6 +2689,17 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
 
+  /react-toastify/9.0.8_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-EwM+teWt49HSHx+67qI08yLAW1zAsBxCXLCsUfxHYv1W7/R3ZLhrqKalh7j+kjgPna1h5LQMSMwns4tB4ww2yQ==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      clsx: 1.2.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -3034,12 +3078,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /tailwindcss/3.1.8_postcss@8.4.16:
+  /tailwindcss/3.1.8:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
-    peerDependencies:
-      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3

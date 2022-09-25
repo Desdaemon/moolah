@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  // A bug with React 18 and useEffect means that strict mode
+  // breaks Supabase auth.
+  reactStrictMode: false,
   swcMinify: true,
 }
 
