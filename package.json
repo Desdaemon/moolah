@@ -6,12 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
-    "@supabase/auth-helpers-nextjs": "^0.2.8",
-    "@supabase/auth-helpers-react": "^0.2.4",
-    "@supabase/supabase-js": "2.0.0-rc.10",
+    "@supabase/auth-helpers-nextjs": "^0.4.0-next.3",
+    "@supabase/auth-helpers-react": "^0.3.0-next.2",
+    "@supabase/supabase-js": "^2.0.0-rc.10",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

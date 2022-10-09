@@ -1,9 +1,9 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@supabase/auth-helpers-nextjs': ^0.2.8
-  '@supabase/auth-helpers-react': ^0.2.4
-  '@supabase/supabase-js': 2.0.0-rc.10
+  '@supabase/auth-helpers-nextjs': ^0.4.0-next.3
+  '@supabase/auth-helpers-react': ^0.3.0-next.2
+  '@supabase/supabase-js': ^2.0.0-rc.10
   '@tailwindcss/forms': ^0.5.3
   '@types/node': 18.7.18
   '@types/react': 18.0.20
@@ -21,8 +21,8 @@ specifiers:
   typescript: 4.8.3
 
 dependencies:
-  '@supabase/auth-helpers-nextjs': 0.2.8
-  '@supabase/auth-helpers-react': 0.2.4
+  '@supabase/auth-helpers-nextjs': 0.4.0-next.3
+  '@supabase/auth-helpers-react': 0.3.0-next.2
   '@supabase/supabase-js': 2.0.0-rc.10
   next: 12.3.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
@@ -39,7 +39,7 @@ devDependencies:
   eslint-config-next: 12.3.0_irgkl5vooow2ydyo6aokmferha
   postcss: 8.4.16
   tailwind: 4.0.0
-  tailwindcss: 3.1.8
+  tailwindcss: 3.1.8_postcss@8.4.16
   typescript: 4.8.3
 
 packages:
@@ -270,22 +270,22 @@ packages:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
 
-  /@supabase/auth-helpers-nextjs/0.2.8:
-    resolution: {integrity: sha512-lGHHKkIHxEoTj6b2MJOdUGOU7rD+S/X+S0WtEnD4HD6d/Ku19UjUrR7AExE0Fa+tbTDfY1BY0o0ELn/yLNeAYQ==}
+  /@supabase/auth-helpers-nextjs/0.4.0-next.3:
+    resolution: {integrity: sha512-WfYHNTPK3SNfotaYXNxrrn39nmKrbyt0yzp+sAr+VA1PEpNQKutilIqvGSFDq+6laaYUVtMSLsoAcuTPI62WYQ==}
     dependencies:
-      '@supabase/auth-helpers-shared': 0.1.4
+      '@supabase/auth-helpers-shared': 0.2.0-next.2
     dev: false
 
-  /@supabase/auth-helpers-react/0.2.4:
-    resolution: {integrity: sha512-o/6VcnkCQnlPFBOVVlmk5w37fhlalDZKxPV9w5eYwgM4uzg1FwH6b70YNuOhA3EwCcy/S8e3pKVEsKAx/LjFcA==}
+  /@supabase/auth-helpers-react/0.3.0-next.2:
+    resolution: {integrity: sha512-V3VaeMjLQFz+uK9KmBWC8/YIcI+CJf+zgAxd8/+/kstyCs2CYMH/hEIE5O8ciTBnfWvlzznttQTasoRxqecCNA==}
     dependencies:
-      '@supabase/auth-helpers-shared': 0.1.4
+      '@supabase/auth-helpers-shared': 0.2.0-next.2
     dev: false
 
-  /@supabase/auth-helpers-shared/0.1.4:
-    resolution: {integrity: sha512-5jsy8pxrdFIBjcpGWihBb1gsiK2WMO8lKKnNlrZCgAzTdC/rZHVnYs7zK8yaLyoHidLfp6N5ZnocJUm7ZKSABQ==}
+  /@supabase/auth-helpers-shared/0.2.0-next.2:
+    resolution: {integrity: sha512-e+u5EuMgQoLVP4cHXdv22V4L7seSKObZVCtkkBT+eqOuHVuJlc/VDM7PYoJVX57gZoUl1Gi1TuZ+ZO70CYgG6A==}
     dependencies:
-      jose: 4.9.3
+      cookie: 0.5.0
     dev: false
 
   /@supabase/functions-js/2.0.0-rc.1:
@@ -355,7 +355,7 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.1.8
+      tailwindcss: 3.1.8_postcss@8.4.16
     dev: true
 
   /@types/json5/0.0.29:
@@ -898,6 +898,11 @@ packages:
     resolution: {integrity: sha512-+IJOX0OqlHCszo2mBUq+SrEbCj6w7Kpffqx60zYbPTFaO4+yYgRjHwcZNpWvaTylDHaV7PPmBHzSecZiMhtPgw==}
     engines: {node: '>= 0.6'}
     dev: true
+
+  /cookie/0.5.0:
+    resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
+    engines: {node: '>= 0.6'}
+    dev: false
 
   /core-js-pure/3.25.1:
     resolution: {integrity: sha512-7Fr74bliUDdeJCBMxkkIuQ4xfxn/SwrVg+HkJUAoNEXVqYLv55l6Af0dJ5Lq2YBUW9yKqSkLXaS5SYPK6MGa/A==}
@@ -1990,10 +1995,6 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /jose/4.9.3:
-    resolution: {integrity: sha512-f8E/z+T3Q0kA9txzH2DKvH/ds2uggcw0m3vVPSB9HrSkrQ7mojjifvS7aR8cw+lQl2Fcmx9npwaHpM/M3GD8UQ==}
-    dev: false
-
   /js-sdsl/4.1.4:
     resolution: {integrity: sha512-Y2/yD55y5jteOAmY50JbUZYwk3CP3wnLPEZnlR1w9oKhITrBEtAxwuWKebFf8hMrPMgbYwFoWK/lH2sBkErELw==}
     dev: true
@@ -3078,10 +3079,12 @@ packages:
       - utf-8-validate
     dev: true
 
-  /tailwindcss/3.1.8:
+  /tailwindcss/3.1.8_postcss@8.4.16:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
