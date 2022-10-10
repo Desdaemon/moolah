@@ -56,4 +56,16 @@ a {
       @apply bg-black;
     }
   }
+  
+  .card {
+    @apply transition rounded m-4 p-4;
+    @apply shadow-md hover:shadow-lg;
+  }
+  
+  
+  @media (prefers-color-scheme: dark) {
+    .card {
+      @apply border border-slate-500 hover:border-slate-300;
+    }
+  }  
 }

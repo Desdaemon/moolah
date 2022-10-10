@@ -1,29 +1,34 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { supabase } from "../utils/supabase";
-import { type User, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { useElementRef } from "../utils/hooks";
 
-const Dashboard: NextPage<{user: User}> = ({ user }) => {
+const Homepage: NextPage = () => {
+  const searchRef = useElementRef<'input'>();
   const router = useRouter()
-  
-  async function logout() {
-    const { error } = await supabase.auth.signOut()
-    if (error) throw error
-    router.push('/login')
-  }
-
   return (
-    <div className="container">
-      <pre>
-        {JSON.stringify(user, null, 2)}
-      </pre>
-      <button
-        className="transition-colors border border-neutral-500 hover:border-neutral-300 p-2 rounded"
-        onClick={logout}>Logout</button>
+    <div className="grid place-items-center h-screen">
+      <div className="text-center w-screen">
+        <h1 className="text-3xl font-bold">
+          <span className="rainbow">Moolah</span>
+        </h1>
+        <div>Finance made easy!</div>
+        <form onSubmit={event => {
+          event.preventDefault()
+          const q = new URLSearchParams({ q: searchRef.current!.value || '' })
+          router.push('/search?' + q.toString())
+        }}>
+          <label htmlFor="search">
+            <input
+              ref={searchRef}
+              className="min-w-[400px] text-black rounded-full"
+              name="search"
+              type="text"
+              placeholder="Search for signals or cryptocurrency" />
+          </label>
+        </form>
+      </div>
     </div>
   )
-};
+}
 
-export default Dashboard;
-
-export const getServerSideProps = withPageAuth({ redirectTo: '/login' })
+export default Homepage

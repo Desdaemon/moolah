@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { supabase } from '../utils/supabase'
 import { useRouter } from 'next/router'
+import { useElementRef } from '../utils/hooks'
 
-const useElementRef = <K extends keyof HTMLElementTagNameMap>() => useRef<HTMLElementTagNameMap[K]>(null);
 function bail(mes = ''): never {
   throw new Error(mes)
 }
