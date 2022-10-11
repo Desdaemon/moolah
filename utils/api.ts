@@ -19,17 +19,14 @@ export async function timeseries(opts: TimeseriesOpts) {
   const params = q.searchParams
   params.set('function', timeseriesMap[opts.scale])
   params.set('symbol', opts.symbol)
+  if (opts.full) params.set('outputsize', 'full')
   params.set('apikey', ALPHA_VANTAGE_API_KEY)
-  params.set('outputsize', opts.full ? 'full' : 'compact')
   const dp = await fetch(q).then(toJson<any>)
-  return (dp[timeseriesRootMap[opts.scale]] ?? bail(dp)) as Datapoints
+  return dp[timeseriesRootMap[opts.scale]] as Datapoints | undefined
 }
 
 // End of functions
 
-function bail(reason: any = 'unspecified reason'): never {
-  throw new Error(reason)
-}
 
 const toJson = <T>(e: Response) => e.json() as Promise<T>
 

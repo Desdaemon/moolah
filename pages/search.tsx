@@ -32,11 +32,11 @@ const Search: NextPage<SearchProps> = (props) => {
         </label>
       </form>
       {props.results.map(result => {
-        const symbol = encodeURIComponent(result[BestMatchesKeys.symbol])
+        const symbol = result[BestMatchesKeys.symbol]
         return (
           <Link
-            href={`/details/${symbol}`}
-            key={result[BestMatchesKeys.symbol]}>
+            href={`/details/${encodeURIComponent(symbol)}`}
+            key={symbol}>
             <div className="card cursor-pointer">
               <pre>{JSON.stringify(result, undefined, 2)}</pre>
             </div>
@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<SearchProps> =
     const { bestMatches } = await search(qs)
     if (bestMatches) {
       bestMatches.sort((a, b) =>
-        b[BestMatchesKeys.matchScore] > a[BestMatchesKeys.matchScore] ? 1 : 0)
+        b[BestMatchesKeys.matchScore].localeCompare(a[BestMatchesKeys.matchScore]))
     }
     return {
       props: {
