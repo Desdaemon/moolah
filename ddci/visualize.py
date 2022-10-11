@@ -1,5 +1,7 @@
 # imports
+import argparse
 import pandas as pd
+from datetime import datetime
 from matplotlib import pyplot as plot
 
 
@@ -8,13 +10,14 @@ class Visualize_Stocks:
     
     # initialize parameters
     def __init__(self, stock_one, file_path_one, desired_variable, time_period,
-                 stock_two = None, file_path_two = None):
+                 stock_two = None, file_path_two = None, result_file_path = None):
         self._stock_one = stock_one
         self._file_path_one = file_path_one
         self._desired_variable = desired_variable
         self._time_period = time_period
         self._stock_two = stock_two
         self._file_path_two = file_path_two
+        self._result_file_path = result_file_path
         self._isTwoStocks = False
         
         # see if there are two stocks given to plot
@@ -31,7 +34,23 @@ class Visualize_Stocks:
             plot = self._graph_two_stocks(self._stock_one, self._file_path_one, self._desired_variable, self._time_period,
                                           self._stock_two, self._file_path_two)
             
-        plot.show()
+        #plot.show()
+        if self._result_file_path != None:
+            path = self._result_file_path
+        else:
+            curr = datetime.now()
+            year = curr.strftime("%Y")
+            month = curr.strftime("%m")
+            day = curr.strftime("%d")
+            hour = curr.strftime("%H")
+            minute = curr.strftime("%M")
+            second = curr.strftime("%S")
+            dateString = year + month + day + '_' + hour + minute + second
+            
+            folder = self._file_path_one.rsplit('/', 1)[0]
+            path = folder + '/visualization_' + dateString
+
+        plot.savefig(path, bbox_inches='tight')
      
     
     ###########################################################################
@@ -120,13 +139,13 @@ class Visualize_Stocks:
     ################################################################################
     def _graph_two_stocks(self, stockOne, pathOne, variable, period, stockTwo, pathTwo):
         # read data
-        data = pd.read_csv(pathOne, usecols = ['Date', desiredVar])
-        data['stockTwoVals'] = pd.read_csv(pathTwo, usecols = [desiredVar])
+        data = pd.read_csv(pathOne, usecols = ['Date', variable])
+        data['stockTwoVals'] = pd.read_csv(pathTwo, usecols = [variable])
         
         # get key variable values
-        closePriceOne = data[desiredVar][len(data) - 1]
+        closePriceOne = data[variable][len(data) - 1]
         closePriceTwo = data['stockTwoVals'][len(data) - 1]
-        avgPriceOne = data[desiredVar].mean()
+        avgPriceOne = data[variable].mean()
         avgPriceTwo = data['stockTwoVals'].mean()
         
 
@@ -137,13 +156,13 @@ class Visualize_Stocks:
 
         # plot the data
         data.plot(x = 'Date', 
-                  y = [desiredVar, 'stockTwoVals'],
+                  y = [variable, 'stockTwoVals'],
                   label = [stockOne, stockTwo],
                   color = colors)
 
-        plot.title('{0} Price for Last {1}: {2} v. {3}'.format(desiredVar, timePeriod, stockOne, stockTwo))
+        plot.title('{0} Price for Last {1}: {2} v. {3}'.format(variable, period, stockOne, stockTwo))
         plot.xlabel('Date')
-        plot.ylabel(desiredVar + ' Price')
+        plot.ylabel(variable + ' Price')
 
         # plot close price line [one]
         plot.axhline(y = closePriceOne, 
@@ -172,3 +191,74 @@ class Visualize_Stocks:
         plot.legend(bbox_to_anchor = (1, 1))
         
         return plot
+
+
+
+
+
+if __name__ == '__main__':
+    descrip = 'visualize stock(s)'
+    arguments = argparse.ArgumentParser(description=descrip)
+
+    arguments.add_argument('-s_1',
+                           '--stock_one',
+                           action='store',
+                           type=str,
+                           required=True,
+                           help='the symbol of the first stock')
+    arguments.add_argument('-p_1',
+                           '--path_one',
+                           action='store',
+                           type=str,
+                           required=True,
+                           help='the file path of the first stock data')
+    arguments.add_argument('-v',
+                           '--desired_variable',
+                           type=str,
+                           required=True,
+                           help='the desired variable to visualize')
+    arguments.add_argument('-t',
+                           '--time_period',
+                           type=str,
+                           required=True,
+                           help='the time period of the data')
+    arguments.add_argument('-s_2',
+                           '--stock_two',
+                           action='store',
+                           type=str,
+                           required=False,
+                           default=None, 
+                           help='the symbol of the second stock')
+    arguments.add_argument('-p_2',
+                           '--path_two',
+                           action='store',
+                           type=str,
+                           required=False,
+                           default=None, 
+                           help='the file path of the second stock data')
+    arguments.add_argument('-r',
+                           '--result_path',
+                           action='store',
+                           type=str,
+                           required=False,
+                           default=None, 
+                           help='the file path of the result')
+
+    parsed = arguments.parse_args()
+    variables = vars(parsed)
+
+    stockOne = variables['stock_one']
+    pathOne = variables['path_one']
+    desiredVar = variables['desired_variable']
+    period = variables['time_period']
+    stockTwo = variables['stock_two']
+    pathTwo = variables['path_two']
+    result = variables['result_path']
+
+    Visualize_Stocks(stockOne, pathOne, desiredVar, period, stockTwo, pathTwo, result).main()
+
+# run one stock example
+# /usr/local/bin/python3 /Users/mtjen/Desktop/395/visualize.py -s_1 'AAPL' -p_1 '/Users/mtjen/Desktop/395/AAPL.csv' -v 'Close' -t '1Y' -r '/Users/mtjen/Desktop/395/AAPL_result.jpeg'
+
+# run two stocks example
+# /usr/local/bin/python3 /Users/mtjen/Desktop/395/visualize.py -s_1 'AAPL' -p_1 '/Users/mtjen/Desktop/395/AAPL.csv' -v 'Close' -t '1Y' -s_2 'ZS' -p_2 '/Users/mtjen/Desktop/395/ZS.csv'
