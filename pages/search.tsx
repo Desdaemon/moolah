@@ -13,7 +13,7 @@ const Search: NextPage<SearchProps> = (props) => {
   const searchRef = useRef<HTMLInputElement>()
   const router = useRouter()
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <form onSubmit={event => {
         event.preventDefault()
         router.push(`/search?q=${encodeURIComponent(searchRef.current!.value || '')}`)
@@ -43,6 +43,7 @@ const Search: NextPage<SearchProps> = (props) => {
           </Link>
         )
       })}
+      {!props.results.length && <span className="text-3xl text-gray-400 font-bold">No results found.</span>}
     </div>
   )
 }

@@ -9,7 +9,7 @@ specifiers:
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
   autoprefixer: ^10.4.11
-  chart.js: ^3.9.1
+  chart.js: 3.5.0
   eslint: 8.23.1
   eslint-config-next: 12.3.0
   next: 12.3.0
@@ -26,10 +26,10 @@ dependencies:
   '@supabase/auth-helpers-nextjs': 0.4.0-next.3
   '@supabase/auth-helpers-react': 0.3.0-next.2
   '@supabase/supabase-js': 2.0.0-rc.10
-  chart.js: 3.9.1
+  chart.js: 3.5.0
   next: 12.3.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
-  react-chartjs-2: 4.3.1_2unjvz6v6rskedwoxtmbfw2rje
+  react-chartjs-2: 4.3.1_6ywuf4dlgddtt34m2liaki7vqu
   react-dom: 18.2.0_react@18.2.0
   react-toastify: 9.0.8_biqbaboplfbrettd7655fr4n2y
 
@@ -43,7 +43,7 @@ devDependencies:
   eslint-config-next: 12.3.0_irgkl5vooow2ydyo6aokmferha
   postcss: 8.4.16
   tailwind: 4.0.0
-  tailwindcss: 3.1.8
+  tailwindcss: 3.1.8_postcss@8.4.16
   typescript: 4.8.3
 
 packages:
@@ -359,7 +359,7 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.1.8
+      tailwindcss: 3.1.8_postcss@8.4.16
     dev: true
 
   /@types/json5/0.0.29:
@@ -805,8 +805,8 @@ packages:
       supports-color: 7.2.0
     dev: true
 
-  /chart.js/3.9.1:
-    resolution: {integrity: sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==}
+  /chart.js/3.5.0:
+    resolution: {integrity: sha512-J1a4EAb1Gi/KbhwDRmoovHTRuqT8qdF0kZ4XgwxpGethJHUdDrkqyPYwke0a+BuvSeUxPf8Cos6AX2AB8H8GLA==}
     dev: false
 
   /chokidar/3.5.3:
@@ -2684,13 +2684,13 @@ packages:
       unpipe: 1.0.0
     dev: true
 
-  /react-chartjs-2/4.3.1_2unjvz6v6rskedwoxtmbfw2rje:
+  /react-chartjs-2/4.3.1_6ywuf4dlgddtt34m2liaki7vqu:
     resolution: {integrity: sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA==}
     peerDependencies:
       chart.js: ^3.5.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      chart.js: 3.9.1
+      chart.js: 3.5.0
       react: 18.2.0
     dev: false
 
@@ -3097,10 +3097,12 @@ packages:
       - utf-8-validate
     dev: true
 
-  /tailwindcss/3.1.8:
+  /tailwindcss/3.1.8_postcss@8.4.16:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3

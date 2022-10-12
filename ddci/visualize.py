@@ -65,6 +65,7 @@ class Visualize_Stocks:
     ###########################################################################
     def _graph_one_stock(self, stock, path, variable, period):
         # read data
+        desiredVar = self._desired_variable
         data = pd.read_csv(path, usecols = ['Date', desiredVar])
         
         # get key variable values
