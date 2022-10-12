@@ -49,7 +49,19 @@ if __name__ == '__main__':
         help="Path to the output file (JPEG format)",
         default="out.jpg",
     )
+    parser.add_argument('-m', '--metric',
+        help='The data metric to process.',
+        choices=['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'],
+        default='Close',
+    )
     args = vars(parser.parse_args())
+    period: timedelta = args['to'] - args['from']
+    if year := period.days // 365:
+        period_d = '{} year{}'.format(year, 's' if year > 1 else '')
+    elif month := period.days // 28:
+        period_d = '{} month{}'.format(month, 's' if month > 1 else '')
+    else:
+        period_d = '{} day{}'.format(period.days, '' if period.days == 1 else 's')
 
     _, file = tempfile.mkstemp()
     ret = system(["curl", "-L", "{}/{}?period1={}&period2={}&interval={}&events={}&includeAdjustedClose=true".format(
@@ -61,16 +73,16 @@ if __name__ == '__main__':
         args['events'],
     ), '-o', file, '--fail-with-body'])
 
+    with open(file, 'r') as f:
+        print(''.join((f.readline() for _ in range(0, 4))))
     if ret.returncode != 0:
-        with open(file, 'r') as f:
-            print('\n'.join((f.readline() for _ in range(0, 4))))
         exit(ret.returncode)
            
     Visualize_Stocks(
         stock_one=args['symbol'],
         file_path_one=file,
-        desired_variable='Close',
-        time_period=args['interval'],
+        desired_variable=args['metric'],
+        time_period=period_d,
         result_file_path=args['output'],
     ).main()
 
