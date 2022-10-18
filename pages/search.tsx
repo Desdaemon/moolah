@@ -2,10 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { GetServerSideProps, NextPage } from "next/types";
 import { useRef } from "react";
-import { BestMatches, BestMatchesKeys, search } from "../utils/api";
+import { Match, MatchK, search } from "../utils/api";
 
 interface SearchProps {
-  results: BestMatches[]
+  results: Match[]
   initialQuery: string
 }
 
@@ -54,12 +54,12 @@ const Search: NextPage<SearchProps> = (props) => {
       </form>
       <div className="grid lg:grid-cols-2 gap-4">
         {props.results.map(result => {
-          const symbol = result[BestMatchesKeys.symbol]
-          const tz = result[BestMatchesKeys.timezone]
-          const openTime = parseTime(result[BestMatchesKeys.marketOpen], tz)
-          const closeTime = parseTime(result[BestMatchesKeys.marketClose], tz)
+          const symbol = result[MatchK.symbol]
+          const tz = result[MatchK.timezone]
+          const openTime = parseTime(result[MatchK.marketOpen], tz)
+          const closeTime = parseTime(result[MatchK.marketClose], tz)
           const closed = openTime && closeTime && (now > closeTime || now < openTime)
-          const flag = commonCurrencies[result[BestMatchesKeys.currency]] || ''
+          const flag = commonCurrencies[result[MatchK.currency]]
           return (
             <Link
               href={`/details/${encodeURIComponent(symbol)}`}
@@ -69,18 +69,20 @@ const Search: NextPage<SearchProps> = (props) => {
                   {openTime && closeTime && (
                     <span className={`pr-1 ${closed ? 'text-red-500' : 'text-green-500'}`}>•</span>
                   )}
-                  {result[BestMatchesKeys.symbol]}
+                  {result[MatchK.symbol]}
                 </h1>
-                <p className="text-sm text-slate-500">{result[BestMatchesKeys.name]}{" • "}{result[BestMatchesKeys.region]}</p>
+                <p className="text-sm text-slate-500">
+                  {result[MatchK.name]}{" • "}{result[MatchK.region]}
+                </p>
                 <div className="flex flex-row space-x-1 mt-2">
                   <div
                     title="Type"
-                    className="badge bg-blue-500 text-white">{result[BestMatchesKeys.type]}</div>
+                    className="badge bg-blue-500 text-white">{result[MatchK.type]}</div>
                   <div
                     title="Currency"
                     className="badge bg-orange-500 text-white">
                     {flag && <span className="pr-1">{flag}</span>}
-                    {result[BestMatchesKeys.currency]}
+                    {result[MatchK.currency]}
                   </div>
                 </div>
               </div>
@@ -102,7 +104,7 @@ export const getServerSideProps: GetServerSideProps<SearchProps> =
     const { bestMatches } = await search(qs)
     if (bestMatches) {
       bestMatches.sort((a, b) =>
-        b[BestMatchesKeys.matchScore].localeCompare(a[BestMatchesKeys.matchScore]))
+        b[MatchK.matchScore].localeCompare(a[MatchK.matchScore]))
     }
     return {
       props: {

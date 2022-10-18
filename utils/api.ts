@@ -49,11 +49,17 @@ interface TimeseriesOpts {
 }
 
 interface SearchResults {
-  bestMatches?: BestMatches[]
+  bestMatches?: Match[]
 }
 
-export type BestMatches = Record<BestMatchesKeys, string>
-export const enum BestMatchesKeys {
+export type Match = Record<MatchK, string> | {
+  crypto: true
+  name: string
+  symbol: string
+  matchScore: number
+  // TODO: Values for cryptocurrencies
+}
+export const enum MatchK {
   symbol = '1. symbol',
   name = '2. name',
   type = '3. type',
