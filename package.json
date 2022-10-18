@@ -10,11 +10,11 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
-    "@supabase/auth-helpers-nextjs": "^0.4.0-next.3",
-    "@supabase/auth-helpers-react": "^0.3.0-next.2",
-    "@supabase/supabase-js": "^2.0.0-rc.10",
+    "@supabase/auth-helpers-nextjs": "^0.4.1",
+    "@supabase/auth-helpers-react": "^0.3.0",
+    "@supabase/supabase-js": "^2.0.0",
     "chart.js": "3.5.0",
-    "next": "12.3.0",
+    "next": "^12.3.2-canary.30",
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
@@ -25,10 +25,10 @@
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
-    "autoprefixer": "^10.4.11",
+    "autoprefixer": "^10.4.12",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.18",
     "tailwind": "^4.0.0",
     "tailwindcss": "^3.1.8",
     "typescript": "4.8.3"
