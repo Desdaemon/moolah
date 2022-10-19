@@ -83,9 +83,6 @@ class Visualize_Stocks:
     #####
     ###########################################################################
     def _graph_one_stock(self, data, stock, path, variable, period):
-        # read data
-        data = pd.read_csv(path, usecols = ['Date', variable])
-        
         # get key variable values
         yLabel = variable + ' Price'
         beginPrice = data[variable][0]
