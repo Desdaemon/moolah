@@ -1,9 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
-import { supabase } from '../utils/supabase'
+import { supabase } from '../utils/client'
 import { useRouter } from 'next/router'
 import { useElementRef } from '../utils/hooks'
+import { queryOr } from '../utils/common'
 
 function bail(mes = ''): never {
   throw new Error(mes)
@@ -14,6 +15,7 @@ const Login: NextPage = () => {
   const [newUser, setNewUser] = useState<boolean>()
   const [error, setError] = useState<string>()
   const router = useRouter()
+  const redirect = queryOr(router.query.from) || '/'
   function getFormElements() {
     const form = formRef.current!
     if (form.reportValidity()) {
@@ -35,7 +37,7 @@ const Login: NextPage = () => {
     const creds = getFormElements()
     const { error } = await supabase.auth.signInWithPassword(creds)
     if (error) return setError(error.message)
-    router.push('/')
+    router.push(redirect)
   }
   async function register(event: any) {
     event.preventDefault()
@@ -47,7 +49,7 @@ const Login: NextPage = () => {
     const creds = getFormElements()
     const { error } = await supabase.auth.signUp(creds)
     if (error) return setError(error.message)
-    router.push('/')
+    router.push(redirect)
   }
   return (
     <div className='container mx-auto'>
@@ -63,7 +65,7 @@ const Login: NextPage = () => {
         <form ref={formRef} className='form'>
           <label htmlFor="email">
             <span>Email</span>
-            <input name="email" type="email" autoComplete='username' />
+            <input name="email" type="email" autoComplete="email" />
           </label>
           {newUser !== undefined &&
             (

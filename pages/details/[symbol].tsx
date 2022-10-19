@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "chart.js";
 import { useRouter } from "next/router";
+import { uri } from "../../utils/common";
 
 ChartJS.register(
   LineElement,
@@ -60,7 +61,7 @@ const Details: NextPage<DetailsProps> = (props) => {
             className="rounded text-black my-2"
             defaultValue={router.query.scale}
             onChange={event => {
-              router.replace(encodeURI(`/details/${props.symbol}?scale=${event.target.value}`))
+              router.replace(uri`/details/${props.symbol}?scale=${event.target.value}`)
             }}>
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>

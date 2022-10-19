@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import type { GetServerSideProps, NextPage } from "next/types";
 import { useRef } from "react";
 import { Match, MatchK, search } from "../utils/api";
+import { uri } from "../utils/common";
 
 interface SearchProps {
   results: Match[]
@@ -37,7 +38,7 @@ const Search: NextPage<SearchProps> = (props) => {
     <div className="container mx-auto">
       <form onSubmit={event => {
         event.preventDefault()
-        router.push(`/search?q=${encodeURIComponent(searchRef.current!.value || '')}`)
+        router.push(uri`/search?q=${searchRef.current!.value || ''}`)
       }}>
         <label htmlFor="search">
           <input
@@ -47,9 +48,9 @@ const Search: NextPage<SearchProps> = (props) => {
                 searchRef.current = ref
               }
             }}
-            className="rounded-full indent-3 min-w-[300px] m-4 h-10 border border-slate-700"
+            className="rounded-full indent-3 min-w-[300px] m-4 h-10 border border-neutral-500"
             name="search"
-            placeholder="Search for signals, cryptocurrencies" />
+            placeholder="Search for symbols, cryptocurrencies" />
         </label>
       </form>
       <div className="grid lg:grid-cols-2 gap-4">
@@ -62,25 +63,28 @@ const Search: NextPage<SearchProps> = (props) => {
           const flag = commonCurrencies[result[MatchK.currency]]
           return (
             <Link
-              href={`/details/${encodeURIComponent(symbol)}`}
+              href={uri`/details/${symbol}`}
               key={symbol}>
               <div className="card m-0 cursor-pointer">
-                <h1 title={closed ? 'Closed' : 'Open'} className="text-2xl">
+                <h1 title={closed ? 'Closed' : 'Open'} className="inline-flex">
                   {openTime && closeTime && (
-                    <span className={`pr-1 ${closed ? 'text-red-500' : 'text-green-500'}`}>•</span>
+                    <div
+                      className={`h-2.5 self-center mr-1 aspect-square rounded-full ${closed ? 'bg-red-500' : 'bg-green-500'}`} />
                   )}
-                  {result[MatchK.symbol]}
+                  <span className="text-2xl">
+                    {result[MatchK.symbol]}
+                  </span>
                 </h1>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-neutral-500">
                   {result[MatchK.name]}{" • "}{result[MatchK.region]}
                 </p>
                 <div className="flex flex-row space-x-1 mt-2">
                   <div
                     title="Type"
-                    className="badge bg-blue-500 text-white">{result[MatchK.type]}</div>
+                    className="badge bg-primary text-white">{result[MatchK.type]}</div>
                   <div
                     title="Currency"
-                    className="badge bg-orange-500 text-white">
+                    className="badge bg-secondary text-white">
                     {flag && <span className="pr-1">{flag}</span>}
                     {result[MatchK.currency]}
                   </div>

@@ -25,7 +25,7 @@ a {
   }
   body {
     color: white;
-    background: black;
+    @apply bg-neutral-900;
   }
 }
 
@@ -53,8 +53,7 @@ a {
   }
   
   .card {
-    @apply transition rounded m-4 p-4;
-    @apply shadow-md hover:shadow-lg;
+    @apply transition rounded m-4 p-4 shadow-md hover:shadow-lg bg-white;
   }
 
   .badge {
@@ -66,7 +65,7 @@ a {
       @apply bg-black;
     }
     .card {
-      @apply border border-slate-500 hover:border-slate-300;
+      @apply bg-neutral-800 border border-neutral-500 hover:border-neutral-300;
     }
   }  
 }
