@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "analyze": "cross-env ANALYZE=1 next build"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.4.1",
@@ -17,15 +18,16 @@
     "next": "^12.3.2-canary.30",
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
-    "react-dom": "18.2.0",
-    "react-toastify": "^9.0.8"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^12.3.1",
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.12",
+    "cross-env": "^7.0.3",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",
     "postcss": "^8.4.18",
