@@ -35,7 +35,7 @@ a {
     100% { background-position-x: 200% }
   }
   .rainbow {
-    @apply bg-gradient-to-r from-sky-500 via-orange-500 to-sky-500;
+    @apply bg-gradient-to-r from-primary via-secondary to-primary;
     animation: xwise 15s linear infinite;
     color: transparent;
     background-clip: text;

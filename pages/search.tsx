@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { GetServerSideProps, NextPage } from "next/types";
 import { useRef } from "react";
+import HomeLink from "../components/homelink";
 import { Match, MatchK, search } from "../utils/api";
 import { uri } from "../utils/common";
 
@@ -36,23 +37,26 @@ const Search: NextPage<SearchProps> = (props) => {
   const router = useRouter()
   return (
     <div className="container mx-auto">
-      <form onSubmit={event => {
-        event.preventDefault()
-        router.push(uri`/search?q=${searchRef.current!.value || ''}`)
-      }}>
-        <label htmlFor="search">
-          <input
-            ref={ref => {
-              if (ref) {
-                ref.value = props.initialQuery
-                searchRef.current = ref
-              }
-            }}
-            className="rounded-full indent-3 min-w-[300px] m-4 h-10 border border-neutral-500"
-            name="search"
-            placeholder="Search for symbols, cryptocurrencies" />
-        </label>
-      </form>
+      <div className="flex flex-row">
+        <HomeLink className="text-3xl mt-4" />
+        <form onSubmit={event => {
+          event.preventDefault()
+          router.push(uri`/search?q=${searchRef.current!.value || ''}`)
+        }}>
+          <label htmlFor="search">
+            <input
+              ref={ref => {
+                if (ref) {
+                  ref.value = props.initialQuery
+                  searchRef.current = ref
+                }
+              }}
+              className="rounded-full indent-3 min-w-[300px] m-4 h-10 border border-neutral-500"
+              name="search"
+              placeholder="Search for symbols, cryptocurrencies" />
+          </label>
+        </form>
+      </div>
       <div className="grid lg:grid-cols-2 gap-4">
         {props.results.map(result => {
           const symbol = result[MatchK.symbol]

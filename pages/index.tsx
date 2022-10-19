@@ -2,6 +2,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import HomeLink from "../components/homelink";
 import { uri } from "../utils/common";
 import { useElementRef } from "../utils/hooks";
 
@@ -18,9 +19,7 @@ const Homepage: NextPage = () => {
       </div>
       <div className="grid place-items-center h-screen">
         <div className="text-center">
-          <h1 className="text-8xl font-bold">
-            <span className="rainbow">Moolah</span>
-          </h1>
+          <HomeLink className="text-8xl" />
           <div className="text-3xl">Finance made easy!</div>
           <form onSubmit={event => {
             event.preventDefault()

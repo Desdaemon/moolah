@@ -11,6 +11,7 @@ import {
 } from "chart.js";
 import { useRouter } from "next/router";
 import { uri } from "../../utils/common";
+import HomeLink from "../../components/homelink";
 
 ChartJS.register(
   LineElement,
@@ -52,6 +53,7 @@ const Details: NextPage<DetailsProps> = (props) => {
   const router = useRouter()
   return (
     <div className="container mx-auto">
+      <HomeLink className="text-3xl mt-4" />
       <div className="card">
         <h1 className="text-3xl">{props.symbol}</h1>
           <select

@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { supabase } from "../utils/client";
 import { type User, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import HomeLink from "../components/homelink";
 
 const Dashboard: NextPage<{user: User}> = ({ user }) => {
   const router = useRouter()
@@ -14,6 +15,7 @@ const Dashboard: NextPage<{user: User}> = ({ user }) => {
 
   return (
     <div className="container mx-auto">
+      <HomeLink className="self-center text-3xl mt-4" />
       <div className="card">
         <h1 className="text-3xl">Dashboard</h1>
         <pre>
