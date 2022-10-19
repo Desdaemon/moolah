@@ -1,5 +1,6 @@
 import { useUser } from "@supabase/auth-helpers-react";
 import type { NextPage } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import HomeLink from "../components/homelink";
@@ -12,6 +13,9 @@ const Homepage: NextPage = () => {
   const user = useUser()
   return (
     <div className="container mx-auto">
+      <Head>
+        <title>Moolah • Finance Made Easy</title>
+      </Head>
       <div className="absolute m-2 p-2 flex flex-row">
         <Link href="/me">
           {user ? user.email || 'User' : 'Login'}

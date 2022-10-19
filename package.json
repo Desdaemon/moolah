@@ -18,7 +18,8 @@
     "next": "^12.3.2-canary.30",
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.6.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",

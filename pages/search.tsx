@@ -1,7 +1,8 @@
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { GetServerSideProps, NextPage } from "next/types";
-import { useRef } from "react";
+import { useReducer, useRef, useState } from "react";
 import HomeLink from "../components/homelink";
 import { Match, MatchK, search } from "../utils/api";
 import { uri } from "../utils/common";
@@ -32,11 +33,29 @@ function parseTime(hour: string, tz: string) {
   return date
 }
 
+function useSymbols() {
+  // symbols is still the same set, but each dispatch is guaranteed to refresh
+  const [{symbols}, setSymbol] = useState({symbols: new Set<string>()})
+  return [symbols, (symbol?: string) => {
+    if (symbol) {
+      symbols.delete(symbol) || symbols.add(symbol)
+    } else {
+      symbols.clear()
+    }
+    setSymbol({ symbols })
+  }] as const
+}
+
 const Search: NextPage<SearchProps> = (props) => {
   const searchRef = useRef<HTMLInputElement>()
   const router = useRouter()
+  const [symbols, setSymbol] = useSymbols()
+
   return (
     <div className="container mx-auto">
+      <Head>
+        <title>Moolah • Search</title>
+      </Head>
       <div className="flex flex-row">
         <HomeLink className="text-3xl mt-4" />
         <form onSubmit={event => {
@@ -57,6 +76,19 @@ const Search: NextPage<SearchProps> = (props) => {
           </label>
         </form>
       </div>
+      {symbols.size > 0 && (
+        <div className="flex flex-row gap-2 my-2">
+          <span>{symbols.size} symbol{symbols.size > 1 ? 's' : ''} selected</span>
+          <button
+            className="badge bg-primary"
+            onClick={() =>
+              router.push(uri`/compare?${
+                [...symbols].map(symbol => `s=${symbol}`).join("&")}`)}>Compare</button>
+          <button
+            className="bg-secondary badge"
+            onClick={() => setSymbol()}>Clear all</button>
+        </div>
+      )}
       <div className="grid lg:grid-cols-2 gap-4">
         {props.results.map(result => {
           const symbol = result[MatchK.symbol]
@@ -69,7 +101,7 @@ const Search: NextPage<SearchProps> = (props) => {
             <Link
               href={uri`/details/${symbol}`}
               key={symbol}>
-              <div className="card m-0 cursor-pointer">
+              <div key={symbol} className="card relative m-0">
                 <h1 title={closed ? 'Closed' : 'Open'} className="inline-flex">
                   {openTime && closeTime && (
                     <div
@@ -82,7 +114,7 @@ const Search: NextPage<SearchProps> = (props) => {
                 <p className="text-sm text-neutral-500">
                   {result[MatchK.name]}{" • "}{result[MatchK.region]}
                 </p>
-                <div className="flex flex-row space-x-1 mt-2">
+                <div className="flex flex-row gap-2 mt-2">
                   <div
                     title="Type"
                     className="badge bg-primary text-white">{result[MatchK.type]}</div>
@@ -93,12 +125,21 @@ const Search: NextPage<SearchProps> = (props) => {
                     {result[MatchK.currency]}
                   </div>
                 </div>
+                <input
+                  type="checkbox"
+                  className="absolute top-1/2 right-2"
+                  checked={symbols.has(symbol)}
+                  onClick={event => event.stopPropagation()}
+                  onChange={() => setSymbol(symbol)}
+                />
               </div>
             </Link>
           )
         })}
       </div>
-      {!props.results.length && <span className="text-3xl text-gray-400 font-bold">No results found.</span>}
+      {!props.results.length && (
+        <span className="text-3xl text-gray-400 font-bold">No results found.</span>
+      )}
     </div>
   )
 }
