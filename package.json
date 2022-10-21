@@ -11,15 +11,21 @@
     "analyze": "cross-env ANALYZE=1 next build"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.12",
+    "@mdx-js/loader": "^2.1.5",
+    "@mdx-js/react": "^2.1.5",
+    "@next/mdx": "^12.3.1",
     "@supabase/auth-helpers-nextjs": "^0.4.1",
     "@supabase/auth-helpers-react": "^0.3.0",
     "@supabase/supabase-js": "^2.0.0",
     "chart.js": "3.5.0",
+    "gray-matter": "^4.0.3",
     "next": "^12.3.2-canary.30",
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.6.0",
+    "remark-html": "^15.0.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",
