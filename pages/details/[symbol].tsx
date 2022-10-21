@@ -80,7 +80,7 @@ const Details: NextPage<DetailsProps> = (props) => {
     <div className="container mx-auto">
       <HomeLink className="text-3xl mt-4" />
       <div className="card">
-        <h1 className="text-3xl">{props.symbol} {`(${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()})`}</h1>
+        <h1 className="text-3xl">{props.symbol} <h1 className="text-sm"> {`${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`}</h1></h1>
           <select
             name="scale"
             id="scale"
@@ -95,9 +95,8 @@ const Details: NextPage<DetailsProps> = (props) => {
             <option value="monthly">Monthly</option>
           </select>
 
-        <div className="grid grid-cols-2">
-
-          <div className="col-span-1 w-30">
+        <div className="flex mb-4"> 
+          <div className="w-1/4">
             {(() => {
               const [date, data] = getLatestData(props.data)
               return <ul className="list-none text-2xl">
@@ -135,7 +134,7 @@ const Details: NextPage<DetailsProps> = (props) => {
             })()}
           </div>
 
-          <div className="row-span-2">
+          <div className="w-3/4">
             <Line
               data={toDataset(props.data)}
               options={{
