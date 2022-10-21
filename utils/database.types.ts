@@ -29,6 +29,20 @@ export interface Database {
           type?: number | null
         }
       }
+      Users: {
+        Row: {
+          "user-id": string
+          "pinned-stocks": Json | null
+        }
+        Insert: {
+          "user-id": string
+          "pinned-stocks"?: Json | null
+        }
+        Update: {
+          "user-id"?: string
+          "pinned-stocks"?: Json | null
+        }
+      }
     }
     Views: {
       [_ in never]: never
