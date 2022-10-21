@@ -51,7 +51,7 @@ a {
   .form label input {
     @apply rounded w-full;
   }
-  
+
   .card {
     @apply transition rounded m-4 p-4 shadow-md hover:shadow-lg bg-white;
   }
@@ -59,7 +59,11 @@ a {
   .badge {
     @apply text-sm rounded-full px-2 py-1;
   }
-  
+
+  .surface {
+    @apply bg-surface dark:bg-neutral-500;
+  }
+ 
   @media (prefers-color-scheme: dark) {
     .form label input {
       @apply bg-black;
@@ -67,5 +71,12 @@ a {
     .card {
       @apply bg-neutral-800 border border-neutral-500 hover:border-neutral-300;
     }
-  }  
+  }
+
+  .spacer {
+    flex: 1;
+  }
+  .flex {
+    display: flex;
+  }
 }

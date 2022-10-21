@@ -13,7 +13,7 @@ export const Compare: NextPage = () => {
       </Head>
       <div className="card">
         <h1 className="text-3xl">Compare</h1>
-        <table className="bg-neutral-500 table-auto w-full rounded p-4">
+        <table className="surface table-auto w-full rounded p-4">
           <thead>
             <tr className="text-left">
               <th>Symbol</th>

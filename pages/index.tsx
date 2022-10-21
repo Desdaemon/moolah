@@ -23,7 +23,7 @@ const Homepage: NextPage = () => {
       </div>
       <div className="grid place-items-center h-screen">
         <div className="text-center">
-          <HomeLink className="text-8xl" />
+          <HomeLink className="text-9xl" />
           <div className="text-3xl">Finance made easy!</div>
           <form onSubmit={event => {
             event.preventDefault()
@@ -32,7 +32,7 @@ const Homepage: NextPage = () => {
             <label htmlFor="search">
               <input
                 ref={searchRef}
-                className="min-w-[400px] indent-3 m-4 h-10 rounded-full"
+                className="min-w-[400px] border border-neutral-500 dark:border-none indent-3 m-4 h-10 rounded-full"
                 name="search"
                 placeholder="Search for symbol, company or crypto" />
             </label>

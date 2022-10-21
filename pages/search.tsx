@@ -2,10 +2,12 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { GetServerSideProps, NextPage } from "next/types";
-import { useReducer, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import Checkbox from "../components/checkbox";
 import HomeLink from "../components/homelink";
 import { Match, MatchK, search } from "../utils/api";
 import { uri } from "../utils/common";
+import { MdStar, MdStarBorder } from 'react-icons/md'
 
 interface SearchProps {
   results: Match[]
@@ -50,6 +52,7 @@ const Search: NextPage<SearchProps> = (props) => {
   const searchRef = useRef<HTMLInputElement>()
   const router = useRouter()
   const [symbols, setSymbol] = useSymbols()
+  const [favorites, setFavorites] = useSymbols()
 
   return (
     <div className="container mx-auto">
@@ -80,12 +83,12 @@ const Search: NextPage<SearchProps> = (props) => {
         <div className="flex flex-row gap-2 my-2">
           <span>{symbols.size} symbol{symbols.size > 1 ? 's' : ''} selected</span>
           <button
-            className="badge bg-primary"
+            className="rounded px-2 bg-primary font-bold text-white"
             onClick={() =>
               router.push(uri`/compare?${
                 [...symbols].map(symbol => `s=${symbol}`).join("&")}`)}>Compare</button>
           <button
-            className="bg-secondary badge"
+            className="rounded px-2 bg-secondary font-bold text-white"
             onClick={() => setSymbol()}>Clear all</button>
         </div>
       )}
@@ -125,13 +128,29 @@ const Search: NextPage<SearchProps> = (props) => {
                     {result[MatchK.currency]}
                   </div>
                 </div>
-                <input
-                  type="checkbox"
-                  className="absolute top-1/2 right-2"
-                  checked={symbols.has(symbol)}
-                  onClick={event => event.stopPropagation()}
-                  onChange={() => setSymbol(symbol)}
-                />
+                <div className="absolute top-2 right-2">
+                  <Checkbox
+                    className="w-6 h-6"
+                    checked={symbols.has(symbol)}
+                    onClick={event => {
+                      event.preventDefault()
+                      event.stopPropagation()
+                      setSymbol(symbol)
+                    }}
+                  />
+                  <Checkbox
+                    className="w-6 h-6"
+                    checked={favorites.has(symbol)}
+                    checkedIcon={MdStar}
+                    uncheckedIcon={MdStarBorder}
+                    color="yellow"
+                    onClick={event => {
+                      event.preventDefault()
+                      event.stopPropagation()
+                      setFavorites(symbol)
+                    }}
+                  />
+                </div>
               </div>
             </Link>
           )
