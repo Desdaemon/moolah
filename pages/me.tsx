@@ -21,7 +21,6 @@ const Dashboard: NextPage<{user: User}> = ({ user, pinnedStocks }) => {
     console.log(s);
     search(s).then(e => console.log(e))
   })
-  console.log()
 
   return (
     <div className="container mx-auto">
@@ -47,37 +46,35 @@ const Dashboard: NextPage<{user: User}> = ({ user, pinnedStocks }) => {
               </div>
             </Link>
           )
-        })
-        }
+        })}
       </div>
     </div>
   )
 };
 
+// For testing
 // <div className="card">
 //   <h1 className="text-3xl">Pinned Stocks</h1>
 //   <pre>
 //     {JSON.stringify(user, null, 2)}
-//     {user?.id}
 //   </pre>
 // </div>
 
 export default Dashboard;
-export const getServerSideProps = async context => {
-  withPageAuth({ redirectTo: '/login?from=/me' })()
-  async function getPinnedStocks() {
+export const getServerSideProps = withPageAuth({
+  redirectTo: '/login?from=/me',
+  async getServerSideProps(ctx, supabase) {
+    const {data: { user }} = await supabase.auth.getUser()
+
     const {data, error} = await supabase
     .from('Users')
     .select()
-    .eq("user-id", "6ea9c27d-9b7b-4354-bad4-ad7d903492d4")
-    return data[0]['pinned-stocks']
-  }
+    .eq("user-id", user.id)
 
-  const stocks = await getPinnedStocks()
-
-  return {
-    props: {
-        pinnedStocks: stocks
+    return {
+      props: {
+        pinnedStocks: data[0]['pinned-stocks']
+      }
     }
-  }
-}
+  },
+})
