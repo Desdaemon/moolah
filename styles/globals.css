@@ -59,7 +59,11 @@ a {
   .badge {
     @apply text-sm rounded-full px-2 py-1;
   }
-  
+
+  .surface {
+    @apply bg-surface dark:bg-neutral-500;
+  }
+ 
   @media (prefers-color-scheme: dark) {
     .form label input {
       @apply bg-black;
