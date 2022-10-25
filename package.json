@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "check": "tsc --noEmit",
-    "analyze": "cross-env ANALYZE=1 next build"
+    "analyze": "cross-env ANALYZE=1 next build",
+    "gen:types": "supabase gen types typescript --linked > utils/database.types.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.12",
