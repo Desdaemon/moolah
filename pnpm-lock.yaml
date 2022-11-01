@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@heroicons/react': ^2.0.12
   '@mdx-js/loader': ^2.1.5
   '@mdx-js/react': ^2.1.5
   '@next/bundle-analyzer': ^12.3.1
@@ -10,6 +9,7 @@ specifiers:
   '@supabase/auth-helpers-react': ^0.3.0
   '@supabase/supabase-js': ^2.0.0
   '@tailwindcss/forms': ^0.5.3
+  '@tailwindcss/typography': ^0.5.7
   '@types/node': 18.7.18
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
@@ -19,6 +19,7 @@ specifiers:
   eslint: 8.23.1
   eslint-config-next: 12.3.0
   next: ^12.3.2-canary.32
+  nodejs-polars: ^0.6.0
   postcss: ^8.4.18
   react: 18.2.0
   react-chartjs-2: ^4.3.1
@@ -30,7 +31,6 @@ specifiers:
   typescript: 4.8.3
 
 dependencies:
-  '@heroicons/react': 2.0.12_react@18.2.0
   '@mdx-js/loader': 2.1.5
   '@mdx-js/react': 2.1.5_react@18.2.0
   '@next/mdx': 12.3.1_wuv4qx5dshjptmdbtsqqkih5iu
@@ -39,6 +39,7 @@ dependencies:
   '@supabase/supabase-js': 2.0.4
   chart.js: 3.5.0
   next: 12.3.2-canary.32_biqbaboplfbrettd7655fr4n2y
+  nodejs-polars: 0.6.0
   react: 18.2.0
   react-chartjs-2: 4.3.1_6ywuf4dlgddtt34m2liaki7vqu
   react-dom: 18.2.0_react@18.2.0
@@ -48,6 +49,7 @@ dependencies:
 devDependencies:
   '@next/bundle-analyzer': 12.3.1
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.0
+  '@tailwindcss/typography': 0.5.7_tailwindcss@3.2.0
   '@types/node': 18.7.18
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
@@ -111,14 +113,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@heroicons/react/2.0.12_react@18.2.0:
-    resolution: {integrity: sha512-FZxKh3i9aKIDxyALTgIpSF2t6V6/eZfF5mRu41QlwkX3Oxzecdm1u6dpft6PQGxIBwO7TKYWaMAYYL8mp/EaOg==}
-    peerDependencies:
-      react: '>= 16'
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /@humanwhocodes/config-array/0.10.7:
     resolution: {integrity: sha512-MDl6D6sBsaV452/QSdX+4CXIjZhIcI0PELsxUjk4U828yd58vk3bTIvk/6w5FY+4hIy9sLW0sfrV7K7Kc++j/w==}
@@ -447,6 +441,18 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
+      tailwindcss: 3.2.0_postcss@8.4.18
+    dev: true
+
+  /@tailwindcss/typography/0.5.7_tailwindcss@3.2.0:
+    resolution: {integrity: sha512-JTTSTrgZfp6Ki4svhPA4mkd9nmQ/j9EfE7SbHJ1cLtthKkpW2OxsFXzSmxbhYbEkfNIyAyhle5p4SYyKRbz/jg==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
       tailwindcss: 3.2.0_postcss@8.4.18
     dev: true
 
@@ -2425,6 +2431,10 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash.castarray/4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+    dev: true
+
   /lodash.includes/4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
     dev: true
@@ -3057,6 +3067,82 @@ packages:
     resolution: {integrity: sha512-QDf6R8VXF56QVe1boek8an/Rb3rSNaxoFWb7Elpsv2m1+Noua1yy0F1FpKpK5VluF8oymWM4w764A4KsYL4pDg==}
     engines: {node: '>=0.1.97'}
     dev: true
+
+  /nodejs-polars-darwin-arm64/0.6.0:
+    resolution: {integrity: sha512-LSd9zOpw1t7JeDTqutPWsHMRU4JK0eQ3gdkhzPMvgfGY7FGA1ZSMox2ObTi6rVHL3cUPyDsw9fKXyO3SHCRs0g==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nodejs-polars-darwin-x64/0.6.0:
+    resolution: {integrity: sha512-6xaGi2EQqxtnpiBAeJnYjtR3iSXW7duOxl+nJpoKCxirDbdtpQ+E3ChgEX2TNbDllYAm3OoGrqXpBNVMG2BCgA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nodejs-polars-linux-arm-gnueabihf/0.6.0:
+    resolution: {integrity: sha512-B25RWn7neamKfnJH07rz+LFAI9v0Yu3Bm0ZYL3JwZvI00zAVEnqPEKn9zbSdgajnK8bImInu8FMDp0XJK531Zw==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nodejs-polars-linux-arm64-gnu/0.6.0:
+    resolution: {integrity: sha512-561E3SaGb/6bW4NNqmYP6y1opyAgyNP0hp9rIS8D9O0efhXu3Tq2mN14g/ZjylJFqKb+Znc5fvfVtEDPld+d0Q==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nodejs-polars-linux-x64-gnu/0.6.0:
+    resolution: {integrity: sha512-L36qBR1nEIhozTn09ZfDap713zIOpnm0sOkr9W8NHk/jUP0Ljl3WL1i4Q62nGsFnl1QwR7qHaYqqYIZUQ+3qsw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nodejs-polars-win32-ia32-msvc/0.6.0:
+    resolution: {integrity: sha512-kqwSdX2F4wwQg2PSfVqHKsqIGoRBLGd1K0DM9eNldDc5wrvkmzR8joPT0NDSOQrKOplzzKIrNAFzJgKgEs6QlQ==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nodejs-polars-win32-x64-msvc/0.6.0:
+    resolution: {integrity: sha512-7ZJH3Ylcj0RrPv8bmj9tyJ3TB762mhfQuRLqb2FcdYGV1klT/MgP/RCIuMBkid2cRHVKeqHJG4dGLDyBDn8dGw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nodejs-polars/0.6.0:
+    resolution: {integrity: sha512-6+VMVjUguKrHZKt3mUTImQy8B31YKuxD0IYsYA6ESnFI/Fr8RSpIb1iVqveTAcjb6iTyQvrFClWItCZIKgz60A==}
+    engines: {node: '>= 16'}
+    optionalDependencies:
+      nodejs-polars-darwin-arm64: 0.6.0
+      nodejs-polars-darwin-x64: 0.6.0
+      nodejs-polars-linux-arm-gnueabihf: 0.6.0
+      nodejs-polars-linux-arm64-gnu: 0.6.0
+      nodejs-polars-linux-x64-gnu: 0.6.0
+      nodejs-polars-win32-ia32-msvc: 0.6.0
+      nodejs-polars-win32-x64-msvc: 0.6.0
+    dev: false
 
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
