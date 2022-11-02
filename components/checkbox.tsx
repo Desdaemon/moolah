@@ -9,17 +9,9 @@ export interface CheckboxProps extends IconBaseProps {
 }
 
 export default function Checkbox(props: CheckboxProps) {
-  function omit<T, K extends keyof T>(props: T, ...keys: K[]) {
-    const ret: any = {}
-    for (const i in props) {
-      if (!keys.includes(i as any)) ret[i] = props[i]
-    }
-    return ret as Omit<T, K>
-  }
-
-  const iconProps = omit(props, 'checkedIcon', 'uncheckedIcon')
-  const Icon = props.checked ? props.checkedIcon || MdCheckBox :
-    props.checked === false ? props.uncheckedIcon || MdCheckBoxOutlineBlank :
+  const {checkedIcon, uncheckedIcon, ...iconProps} = props
+  const Icon = props.checked ? checkedIcon || MdCheckBox :
+    props.checked === false ? uncheckedIcon || MdCheckBoxOutlineBlank :
     props.indeterminateIcon || MdIndeterminateCheckBox
 
   return <Icon {...iconProps} />

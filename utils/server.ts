@@ -17,7 +17,7 @@ export interface SymbolDataOptions {
 const HOUR = 60 * 60 * 1000
 const YEAR = 360 * 24 * HOUR
 
-/** Return a timestamped {@link pl.DataFrame} with five metrics:
+/** Return a timestamped {@link pl.DataFrame} with six metrics:
   - `Open`
   - `High`
   - `Low`
@@ -42,20 +42,20 @@ export async function symbolData(symbol: string, opts?: Partial<SymbolDataOption
   const symbolData = data.get(symbol)
   if (symbolData && cached && !shouldRefresh(symbolData)) {
     console.log(`Cache hit for ${symbol}`)
-    return symbolData.df
+    return {data: symbolData.df}
   }
   const query = new URLSearchParams(toQuery(rest))
   const url = `https://query1.finance.yahoo.com/v7/finance/download/${symbol}?${query}`
   const res = await fetch(url)
   if (res.status >= 400) {
-    throw {code: res.status, message: `${res.statusText}\n${await res.text()}`}
+    return {error: {code: res.status, message: `${res.statusText}\n${await res.text()}`}}
   }
 
   const body = await res.text()
   let df = pl.readCSV(body)
   df = df.sort('Date', true)
   if (cached) data.set(symbol, {date: now, df})
-  return df
+  return {data: df}
 }
 
 function shouldRefresh({ date }: Data) {

@@ -26,7 +26,6 @@ ChartJS.register(
 
 type Datapoints = Details;
 
-
 interface DetailsProps {
   symbol: string;
   data: Datapoints
@@ -36,7 +35,7 @@ function toDataset(data: Datapoints, key = DatapointKeys.close) {
   const dp: number[] = [];
   const labels: string[] = [];
   for (let i = 0; i < data[key].length; ++i) {
-    labels.push(data.Date[0])
+    labels.push(data.Date[i])
     dp.push(data[key][i])
   }
   return {
@@ -45,7 +44,7 @@ function toDataset(data: Datapoints, key = DatapointKeys.close) {
       {
         label: key,
         data: dp,
-        borderColor: "rgb(255, 120, 120)",
+        borderColor: "#00a86b",
         backgroundColor: "rbga(255, 120, 120, 0.5)",
         fill: false,
         tension: 0.1,
@@ -190,11 +189,11 @@ export const getServerSideProps: GetServerSideProps<DetailsProps> = async contex
   let cached: boolean
   switch (context.query.scale) {
     case 'weekly':
-      interval = '1w'
+      interval = '1wk'
       cached = false
       break
     case 'monthly':
-      interval = '1m'
+      interval = '1mo'
       cached = false
       break
     case 'daily':
@@ -202,16 +201,15 @@ export const getServerSideProps: GetServerSideProps<DetailsProps> = async contex
       interval = '1d'
       cached = true
   }
-  try {
-    const data = await symbolData(symbol, { interval, cached })
-    return {
-      props: {
-        symbol,
-        data: data.toObject() as any
-      }
+  const {data, error} = await symbolData(symbol, { interval, cached })
+  if (error) {
+    if (error.code == 404) return {notFound: true}
+    throw new Error(error.message)
+  }
+  return {
+    props: {
+      symbol,
+      data: data.toObject() as any
     }
-  } catch (err: any) {
-    if (err.code === 404) return { notFound: true }
-    throw err
   }
 }
