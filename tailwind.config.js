@@ -1,8 +1,11 @@
+const exts = ['js', 'ts', 'jsx', 'tsx', 'mdx', 'md'].join(',')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx,md}',
-    './components/**/*.{js,ts,jsx,tsx,mdx,md}',
+    `./pages/**/*.{${exts}}`,
+    `./app/**/*.{${exts}}`,
+    `./components/**/*.{${exts}}`,
   ],
   theme: {
     extend: {

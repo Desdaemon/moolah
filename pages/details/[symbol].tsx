@@ -9,12 +9,14 @@ import {
   LinearScale,
   CategoryScale,
   Tooltip,
+  Filler,
 } from "chart.js";
 import { useRouter } from "next/router";
-import { queryOr, uri, Details, DatapointKeys } from "../../utils/common";
+import { queryOr, uri, Series, SeriesKeys, Hsl} from "../../utils/common";
 import HomeLink from "../../components/homelink";
 import Link from "next/link";
 import { symbolData } from "../../utils/server";
+import { col as plCol } from 'nodejs-polars'
 
 ChartJS.register(
   LineElement,
@@ -22,43 +24,53 @@ ChartJS.register(
   LinearScale,
   CategoryScale,
   Tooltip,
+  Filler,
 );
 
-type Datapoints = Details;
+type Datapoints = Series;
 
 interface DetailsProps {
   symbol: string;
   data: Datapoints
 }
 
-function toDataset(data: Datapoints, key = DatapointKeys.close) {
-  const dp: number[] = [];
-  const labels: string[] = [];
-  for (let i = 0; i < data[key].length; ++i) {
-    labels.push(data.Date[i])
-    dp.push(data[key][i])
-  }
-  return {
-    labels,
-    datasets: [
-      {
-        label: key,
-        data: dp,
-        borderColor: "#00a86b",
-        backgroundColor: "rbga(255, 120, 120, 0.5)",
-        fill: false,
-        tension: 0.1,
-        pointRadius: 0,
+function toDataset(data: Datapoints, ...keys: string[]) {
+  if (!keys.length) keys = ['Close Avg', SeriesKeys.close]
+  const labels = data.Date
+  const datasets = keys.map(key => {
+    const fg = Hsl.random(undefined, 100, 75)
+    return {
+      label: key,
+      data: data[key],
+      borderColor: fg.toString(),
+      fill: key.endsWith('Avg') ? false : {
+        target: 'origin',
+        above: fg.withAlpha(0.2).toString(),
+        below: 'hsla(0, 0%, 0%, 0)',
       },
-    ],
-  };
+      tension: 0.1,
+      pointRadius: 0,
+    }
+  })
+  return { labels, datasets };
 }
 
-function getLatestData(data: Datapoints, key = DatapointKeys.close) {
+// function color(alpha?: number) {
+//   const hue = Math.random() * 360
+//   if (typeof alpha !== 'undefined') {
+//     return `hsla(${hue}, 100%, 32.9%, ${alpha})`
+//   } else {
+//     return `hsl(${hue}, 100%, 32.9%)`
+//   }
+// }
+
+// const rand255 = () => Math.floor(Math.random() * 255)
+
+function getLatestData(data: Datapoints, key = SeriesKeys.close) {
   return (data[key][0] as number).toFixed(2)
 }
 
-function comparePreviousDay(data: Datapoints, key = DatapointKeys.close) {
+function comparePreviousDay(data: Datapoints, key = SeriesKeys.close) {
   const [todayData, yesterdayData] = data[key]
 
   const yesterdayHigh = +yesterdayData[key]
@@ -69,7 +81,7 @@ function comparePreviousDay(data: Datapoints, key = DatapointKeys.close) {
   return <BsChevronDoubleUp className="h-4 w-4 inline text-green-500 fill-current" />
 }
 
-const Details: NextPage<DetailsProps> = (props) => {
+const DetailsPage: NextPage<DetailsProps> = props => {
   const router = useRouter()
   const current = new Date()
   return (
@@ -106,7 +118,7 @@ const Details: NextPage<DetailsProps> = (props) => {
                       className="cursor-pointer h-4 w-4 inline" />
                   </Link>
                   {' Open: '}
-                  {getLatestData(props.data, DatapointKeys.open)}
+                  {getLatestData(props.data, SeriesKeys.open)}
                 </div>
               </li>
               <li>
@@ -117,7 +129,7 @@ const Details: NextPage<DetailsProps> = (props) => {
                       className="cursor-pointer h-4 w-4 inline" />
                   </Link>
                   {' High: '}
-                  {getLatestData(props.data, DatapointKeys.high)}{' '}{comparePreviousDay(props.data, DatapointKeys.high)}
+                  {getLatestData(props.data, SeriesKeys.high)}{' '}{comparePreviousDay(props.data, SeriesKeys.high)}
                 </div>
               </li>
               <li>
@@ -128,7 +140,7 @@ const Details: NextPage<DetailsProps> = (props) => {
                       className="cursor-pointer h-4 w-4 inline" />
                   </Link>
                   {' Low: '}
-                  {getLatestData(props.data, DatapointKeys.low)}{' '}{comparePreviousDay(props.data, DatapointKeys.low)}
+                  {getLatestData(props.data, SeriesKeys.low)}{' '}{comparePreviousDay(props.data, SeriesKeys.low)}
                 </div>
               </li>
               <li>
@@ -139,7 +151,7 @@ const Details: NextPage<DetailsProps> = (props) => {
                       className="cursor-pointer h-4 w-4 inline" />
                   </Link>
                   {' Volume: '}
-                  {getLatestData(props.data, DatapointKeys.volume)}{' '}{comparePreviousDay(props.data, DatapointKeys.volume)}
+                  {getLatestData(props.data, SeriesKeys.volume)}{' '}{comparePreviousDay(props.data, SeriesKeys.volume)}
                 </div>
               </li>
               <li>
@@ -150,7 +162,7 @@ const Details: NextPage<DetailsProps> = (props) => {
                       className="cursor-pointer h-4 w-4 inline" />
                   </Link>
                   {' Close: '}
-                  {getLatestData(props.data, DatapointKeys.close)}{' '}{comparePreviousDay(props.data, DatapointKeys.close)}
+                  {getLatestData(props.data, SeriesKeys.close)}{' '}{comparePreviousDay(props.data, SeriesKeys.close)}
                 </div>
               </li>
             </ul>
@@ -180,36 +192,38 @@ const Details: NextPage<DetailsProps> = (props) => {
   );
 };
 
-export default Details;
+export default DetailsPage
 
 export const getServerSideProps: GetServerSideProps<DetailsProps> = async context => {
   const symbol = queryOr(context.query.symbol)
   if (!symbol) return { notFound: true }
   let interval: string
-  let cached: boolean
   switch (context.query.scale) {
     case 'weekly':
       interval = '1wk'
-      cached = false
       break
     case 'monthly':
       interval = '1mo'
-      cached = false
       break
     case 'daily':
     default:
       interval = '1d'
-      cached = true
   }
-  const {data, error} = await symbolData(symbol, { interval, cached })
+  const {data, error} = await symbolData(symbol, { interval })
   if (error) {
     if (error.code == 404) return {notFound: true}
     throw new Error(error.message)
-  }
+ }
+  
+  const windowSize = Math.ceil(data.getColumn('Date').len() / 18)
+  const data_ = data
+    .withColumn(plCol('Close').rollingMean({ windowSize, minPeriods: 0 }).as('Close Avg'))
+    .sort('Date', true)
+    .withColumn(plCol('Date').date.strftime('%Y-%m-%d'))
   return {
     props: {
       symbol,
-      data: data.toObject() as any
+      data: data_.toObject() as any
     }
   }
 }

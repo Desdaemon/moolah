@@ -4,18 +4,18 @@ export interface Data {
   date: Date
   df: pl.DataFrame
 }
-const data = new Map<string, Data>()
+// const data = new Map<string, Data>()
 
 export interface SymbolDataOptions {
-  cached: boolean
   period1: Date | number
   period2: Date | number
   interval: string
   events: 'history' | 'div' | 'split' | 'capitalGain'
+  revalidate: number
 }
 
-const HOUR = 60 * 60 * 1000
-const YEAR = 360 * 24 * HOUR
+const HOUR_S = 60 * 60
+const YEAR = 360 * 24 * HOUR_S * 1000
 
 /** Return a timestamped {@link pl.DataFrame} with six metrics:
   - `Open`
@@ -31,38 +31,37 @@ const YEAR = 360 * 24 * HOUR
 export async function symbolData(symbol: string, opts?: Partial<SymbolDataOptions>) {
   const now = new Date()
   const start = new Date(now.getTime() - YEAR)
-  const {cached, ...rest} = {
-    cached: true,
+  const {revalidate, ...rest} = {
+    revalidate: HOUR_S,
     period1: start,
     period2: now,
     interval: '1d',
     events: 'history' as const,
     ...opts
   }
-  const symbolData = data.get(symbol)
-  if (symbolData && cached && !shouldRefresh(symbolData)) {
-    console.log(`Cache hit for ${symbol}`)
-    return {data: symbolData.df}
-  }
+  // const symbolData = data.get(symbol)
+  // if (symbolData && cached && !shouldRefresh(symbolData)) {
+  //   console.log(`Cache hit for ${symbol}`)
+  //   return {data: symbolData.df}
+  // }
   const query = new URLSearchParams(toQuery(rest))
   const url = `https://query1.finance.yahoo.com/v7/finance/download/${symbol}?${query}`
-  const res = await fetch(url)
+  const res = await fetch(url, { next: { revalidate } })
+  const text = await res.text()
   if (res.status >= 400) {
-    return {error: {code: res.status, message: `${res.statusText}\n${await res.text()}`}}
+    return {error: {code: res.status, message: `${res.statusText}\n${text}`}}
   }
 
-  const body = await res.text()
-  let df = pl.readCSV(body)
-  df = df.sort('Date', true)
-  if (cached) data.set(symbol, {date: now, df})
+  let df = pl.readCSV(text, { parseDates: true })
+  // if (cached) data.set(symbol, {date: now, df})
   return {data: df}
 }
 
-function shouldRefresh({ date }: Data) {
-  return Date.now() - date.getTime() > HOUR
-}
+// function shouldRefresh({ date }: Data) {
+//   return Date.now() - date.getTime() > HOUR
+// }
 
-function toQuery(query: Omit<SymbolDataOptions, 'cached'>) {
+function toQuery(query: Omit<SymbolDataOptions, 'revalidate'>) {
   const {period1, period2, ...rest} = query
   return {
     period1: toYahooTimestamp(period1),
@@ -78,9 +77,3 @@ function toYahooTimestamp(period: Date | number) {
     : period.getTime().toString()
   return ret.substring(0, 10)
 }
-
-// function stripTime(date: Date) {
-//   const ret = new Date(date.getTime())
-//   ret.setUTCHours(0, 0, 0, 0)
-//   return ret
-// }
