@@ -8,10 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "check": "tsc --noEmit",
-    "analyze": "cross-env ANALYZE=1 next build"
+    "analyze": "cross-env ANALYZE=1 next build",
+    "gen:types": "supabase gen types typescript --linked > utils/database.types.ts"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.12",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
     "@next/mdx": "^12.3.1",
@@ -20,6 +20,7 @@
     "@supabase/supabase-js": "^2.0.0",
     "chart.js": "3.5.0",
     "next": "^12.3.2-canary.32",
+    "nodejs-polars": "^0.6.0",
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",
     "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.7",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",

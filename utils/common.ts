@@ -12,3 +12,21 @@ export function queriesOf(query?: string | string[]) {
 export function uri(tmp: TemplateStringsArray, ...parts: any[]) {
   return encodeURI(String.raw(tmp, ...parts));
 }
+
+export function dbg<T>(value: T) {
+  console.log(value)
+  return value
+}
+
+export const enum DatapointKeys {
+  open = 'Open',
+  high = 'High',
+  low = 'Low',
+  close = 'Close',
+  adjClose = 'Adj Close',
+  volume = 'Volume'
+}
+
+export interface Details extends Record<DatapointKeys, number[]> {
+  Date: string[]
+}

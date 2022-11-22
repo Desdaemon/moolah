@@ -143,7 +143,7 @@ const Search: NextPage<SearchProps> = (props) => {
                     checked={favorites.has(symbol)}
                     checkedIcon={MdStar}
                     uncheckedIcon={MdStarBorder}
-                    color="yellow"
+                    color="orange"
                     onClick={event => {
                       event.preventDefault()
                       event.stopPropagation()
