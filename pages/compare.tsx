@@ -45,7 +45,9 @@ export const Compare: NextPage<DetailsProps> = (props) => {
                 <tr key={symbol}> 
                   <td>{symbol}</td>
                   <td>{getLatestData(props.data[symbol], DatapointKeys.open)}</td>
-
+                  <td>{getLatestData(props.data[symbol], DatapointKeys.close)}</td>
+                  <td>{getLatestData(props.data[symbol], DatapointKeys.high)}</td>
+                  <td>{getLatestData(props.data[symbol], DatapointKeys.low)}</td>
                 </tr>
                 
               ))
