@@ -31,7 +31,7 @@ interface DetailsProps {
   data: Datapoints
 }
 
-function toDataset(data: Datapoints, key = DatapointKeys.close) {
+export function toDataset(data: Datapoints, key = DatapointKeys.close) {
   const dp: number[] = [];
   const labels: string[] = [];
   for (let i = 0; i < data[key].length; ++i) {
@@ -55,7 +55,8 @@ function toDataset(data: Datapoints, key = DatapointKeys.close) {
 }
 
 function getLatestData(data: Datapoints, key = DatapointKeys.close) {
-  return (data[key][0] as number).toFixed(2)
+  // return (data[key][0] as number).toFixed(2)
+  return data[key][0]?.toFixed(2)
 }
 
 function comparePreviousDay(data: Datapoints, key = DatapointKeys.close) {

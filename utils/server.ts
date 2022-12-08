@@ -53,7 +53,7 @@ export async function symbolData(symbol: string, opts?: Partial<SymbolDataOption
 
   const body = await res.text()
   let df = pl.readCSV(body)
-  df = df.sort('Date', true)
+    .sort('Date', true)
   if (cached) data.set(symbol, {date: now, df})
   return {data: df}
 }
