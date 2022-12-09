@@ -43,20 +43,20 @@ const Dashboard: NextPage<DashboardProps> = ({ user, pinnedStocks }) => {
       <div className="card">
         <h1 className="text-3xl">🔍 Search Stocks </h1>
         <p> In the homepage, you can type in the name of a stock or cryptocurrency to search.
-        The name does not need to be exact to find the result you're looking for.</p>
-        <Image src={m0} layout='responsive'/>
+        The name does not need to be exact to find the result{" you're "}looking for.</p>
+        <Image alt="Stock Search" src={m0} layout='responsive'/>
       </div>
       <div className="card">
         <h1 className="text-3xl">⚖️ Compare Stocks</h1>
         <p>In the search results, you can select the checkbox of stocks you wish to compare.
         The checkboxes can be selected across multiple searches.</p>
-        <Image src={m1} layout='responsive'/>
+        <Image alt="Stock Compare" src={m1} layout='responsive'/>
       </div>
       <div className="card">
         <h1 className="text-3xl">⭐ Pin Stocks</h1>
         <p>To pin a stock and save it to your favorites, simply click on the star icon next to
         the stock and it will show up on your dashboard.</p>
-        <Image src={m2} layout='responsive'/>
+        <Image alt="Stock Pinning" src={m2} layout='responsive'/>
       </div>
     </div>
   )
