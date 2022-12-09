@@ -6,12 +6,16 @@ import { useRef, useState } from "react";
 import Checkbox from "../components/checkbox";
 import HomeLink from "../components/homelink";
 import { Match, MatchK, search } from "../utils/api";
-import { uri } from "../utils/common";
+import { dbg, uri } from "../utils/common";
 import { MdStar, MdStarBorder } from 'react-icons/md'
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "../utils/database.types";
 
 interface SearchProps {
   results: Match[]
   initialQuery: string
+  loggedIn: boolean
+  favorites: string[]
 }
 
 const now = new Date()
@@ -35,9 +39,9 @@ function parseTime(hour: string, tz: string) {
   return date
 }
 
-function useSymbols() {
+function useSymbols(init?: string[]) {
   // symbols is still the same set, but each dispatch is guaranteed to refresh
-  const [{symbols}, setSymbol] = useState({symbols: new Set<string>()})
+  const [{symbols}, setSymbol] = useState({symbols: new Set<string>(init)})
   return [symbols, (symbol?: string) => {
     if (symbol) {
       symbols.delete(symbol) || symbols.add(symbol)
@@ -52,7 +56,7 @@ const Search: NextPage<SearchProps> = (props) => {
   const searchRef = useRef<HTMLInputElement>()
   const router = useRouter()
   const [symbols, setSymbol] = useSymbols()
-  const [favorites, setFavorites] = useSymbols()
+  const [favorites, setFavorites] = useSymbols(props.favorites)
 
   return (
     <div className="container mx-auto">
@@ -138,18 +142,26 @@ const Search: NextPage<SearchProps> = (props) => {
                       setSymbol(symbol)
                     }}
                   />
-                  <Checkbox
-                    className="w-6 h-6"
-                    checked={favorites.has(symbol)}
-                    checkedIcon={MdStar}
-                    uncheckedIcon={MdStarBorder}
-                    color="orange"
-                    onClick={event => {
-                      event.preventDefault()
-                      event.stopPropagation()
-                      setFavorites(symbol)
-                    }}
-                  />
+                  {props.loggedIn && (
+                    <Checkbox
+                      className="w-6 h-6"
+                      checked={favorites.has(symbol)}
+                      checkedIcon={MdStar}
+                      uncheckedIcon={MdStarBorder}
+                      color="orange"
+                      onClick={event => {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        setFavorites(symbol)
+                        fetch('/api/favorites', {
+                          method: 'POST',
+                          body: JSON.stringify({
+                            name: symbol
+                          })
+                        })
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             </Link>
@@ -167,17 +179,37 @@ export default Search
 
 export const getServerSideProps: GetServerSideProps<SearchProps> =
   async context => {
-    let q = context.query.q || []
-    let qs = typeof q === 'string' ? q : q.join(' ')
-    const { bestMatches } = await search(qs)
-    if (bestMatches) {
-      bestMatches.sort((a, b) =>
-        b[MatchK.matchScore].localeCompare(a[MatchK.matchScore]))
-    }
+    const [{favorites, loggedIn}, {bestMatches, qs}] = await Promise.all([
+      (async () => {
+        const supabase = createServerSupabaseClient<Database>(context)
+        const {data: {user}} = await supabase.auth.getUser()
+        let favorites: string[] = []
+        if (user) {
+          const {data: favs} = await supabase
+            .from('favorites')
+            .select('*')
+            .eq('user_id', user.id)
+          if (favs) favorites = favs.map(fav => fav.name)
+        }
+        return {favorites, loggedIn: !!user}
+      })(),
+      (async () => {
+        let q = context.query.q || []
+        let qs = typeof q === 'string' ? q : q.join(' ')
+        const { bestMatches } = await search(qs)
+        if (bestMatches) {
+          bestMatches.sort((a, b) =>
+            b[MatchK.matchScore].localeCompare(a[MatchK.matchScore]))
+        }
+        return {bestMatches, qs}
+      })()
+    ])
     return {
       props: {
         results: bestMatches ?? [],
         initialQuery: qs,
+        loggedIn,
+        favorites
       }
     }
   }
