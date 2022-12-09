@@ -16,10 +16,16 @@ const Homepage: NextPage = () => {
       <Head>
         <title>Moolah • Finance Made Easy</title>
       </Head>
-      <div className="absolute m-2 p-2 flex flex-row">
+      <div className="absolute m-2 p-2 flex flex-row full-row">
         <Link href="/me">
           {user ? user.email || 'User' : 'Login'}
         </Link>
+        <div className="flex spacer" />
+        <div className="circle">
+          <Link href="/help">
+          ?
+          </Link>
+        </div>
       </div>
       <div className="grid place-items-center h-screen">
         <div className="text-center">

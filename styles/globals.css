@@ -63,7 +63,7 @@ a {
   .surface {
     @apply bg-surface dark:bg-neutral-500;
   }
- 
+
   @media (prefers-color-scheme: dark) {
     .form label input {
       @apply bg-black;
@@ -78,5 +78,18 @@ a {
   }
   .flex {
     display: flex;
+  }
+  .full-row {
+    width: 90%;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+  .circle {
+    border: 1px solid #808080;
+    color: #808080;
+    border-radius: 50%;
+    padding: 0.2rem 0.7rem;
+    text-align: center;
+    cursor: pointer;
   }
 }

@@ -9,7 +9,7 @@ background{
 }
 body{
     margin:0%;
-    
+
 }
 /*id tags by area*/
 /*top*/
@@ -34,7 +34,7 @@ body{
     font-family: 'GlacialIndifferenceBold';
     font-weight:bolder;
     text-align: center;
-    margin: 1% 0;   
+    margin: 1% 0;
     width: 50%;
 }
 /*center*/
@@ -57,7 +57,7 @@ body{
     text-shadow: none;
     transition-duration: 2s;
     transition-delay: .1s;
-   
+
 }
 #fin-cap{
     font-size: 5.9rem;
@@ -152,15 +152,15 @@ body{
     display: inline-block;
     width: 60px;
     height: 34px;
-    
+
   }
-  
+
   .toggle input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   /* The slider */
   .round-slider {
     position: absolute;
@@ -175,7 +175,7 @@ body{
     border-radius: 34px;
     border-width: 2cm;
   }
-  
+
   .round-slider:before {
     position: absolute;
     content: "";
@@ -192,11 +192,11 @@ body{
   input:checked + .round-slider {
     background-color: #00a86b;
   }
-  
+
   input:focus + .round-slider {
     box-shadow: 0 0 1px #00a86b;
   }
-  
+
   input:checked + .round-slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
@@ -226,6 +226,10 @@ body{
   /*dark mode */
 .darkmode{
     background-color: black;
+}
+
+.full-row {
+  width: 100%;
 }
 
 /*dashboard button styling*/
@@ -298,5 +302,3 @@ body{
   background:#000000;
   color: #ffffff;
 }
-
-  

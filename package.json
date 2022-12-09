@@ -14,7 +14,7 @@
   "dependencies": {
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
-    "@next/mdx": "^12.3.1",
+    "@next/mdx": "^12.3.4",
     "@supabase/auth-helpers-nextjs": "^0.4.1",
     "@supabase/auth-helpers-react": "^0.3.0",
     "@supabase/supabase-js": "^2.0.0",
