@@ -4,7 +4,7 @@ specifiers:
   '@mdx-js/loader': ^2.1.5
   '@mdx-js/react': ^2.1.5
   '@next/bundle-analyzer': ^12.3.1
-  '@next/mdx': ^12.3.1
+  '@next/mdx': ^12.3.4
   '@supabase/auth-helpers-nextjs': ^0.4.1
   '@supabase/auth-helpers-react': ^0.3.0
   '@supabase/supabase-js': ^2.0.0
@@ -33,7 +33,7 @@ specifiers:
 dependencies:
   '@mdx-js/loader': 2.1.5
   '@mdx-js/react': 2.1.5_react@18.2.0
-  '@next/mdx': 12.3.1_wuv4qx5dshjptmdbtsqqkih5iu
+  '@next/mdx': 12.3.4_wuv4qx5dshjptmdbtsqqkih5iu
   '@supabase/auth-helpers-nextjs': 0.4.1
   '@supabase/auth-helpers-react': 0.3.0
   '@supabase/supabase-js': 2.0.4
@@ -202,8 +202,8 @@ packages:
       glob: 7.1.7
     dev: true
 
-  /@next/mdx/12.3.1_wuv4qx5dshjptmdbtsqqkih5iu:
-    resolution: {integrity: sha512-b7G3CsAwyD/8Eo6uDjCCqNwEi68LTyo/JYPC0N2Yu3yl/iveMDCi03ME+9JsnFPr3DcjmGSKc1ioiYM4dJUkTg==}
+  /@next/mdx/12.3.4_wuv4qx5dshjptmdbtsqqkih5iu:
+    resolution: {integrity: sha512-YTF/ph9NMKjmrNsr8O+y3IiZee9TaxSd6051qI0Fj/du75pKRRZ1DnOX6ZS7mMgswH7VMERVV7fBZxmJr9sN7Q==}
     peerDependencies:
       '@mdx-js/loader': '>=0.15.0'
       '@mdx-js/react': '*'
