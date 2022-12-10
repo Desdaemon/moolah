@@ -1,1 +1,134 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Budgeting Tool</title>
+    <link rel="stylesheet" href ="style.css">
+</head>
+<body>
+
+    <div class="tax-calculator">
+        <div class = "tax-calculator-title">
+            <h2 class = "title">Tax Calculator</h2>
+
+            <form action="#">
+                <div class="group">
+                    <div class="title">Salary</div>
+                    <input id="preTaxSalary" type = "number" class = "pre-tax-salary" />
+                </div>
+
+                <div class="group">
+                    <label class = "filing" for="">Filing Status:</label>
+                    <select name ="states" type = "text" id="filing-status">
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                    </select>
+                </div>
+
+                <div class="group">
+                    <label class = "state-of-residence" for="">State:</label>
+                    <select name ="states" type = "text" id="states">
+                        <option value="Alabama">Alabama</option>
+                        <option value="Alaska">Alaska</option>
+                        <option value="Arizona">Arizona</option>
+                        <option value="Arkansas">Arkansas</option>
+                        <option value="California">California</option>
+                        <option value="Colorado">Colorado</option>
+                        <option value="Connecticut">Connecticut</option>
+                        <option value="Delaware">Delaware</option>
+                        <option value="Florida">Florida</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Hawaii">Hawaii</option>
+                        <option value="Idaho">Idaho</option>
+                        <option value="Illinois">Illinois</option>
+                        <option value="Indiana">Indiana</option>
+                        <option value="Iowa">Iowa</option>
+                        <option value="Kansas">Kansas</option>
+                        <option value="Kentucky">Kentucky</option>
+                        <option value="Louisiana">Louisiana</option>
+                        <option value="Maine">Maine</option>
+                        <option value="Maryland">Maryland</option>
+                        <option value="Massachusetts">Massachusetts</option>
+                        <option value="Michigan">Michigan</option>
+                        <option value="Minnesota">Minnesota</option>
+                        <option value="Mississippi">Mississippi</option>
+                        <option value="Missouri">Missouri</option>
+                        <option value="Montana">Montana</option>
+                        <option value="Nebraska">Nebraska</option>
+                        <option value="Nevada">Nevada</option>
+                        <option value="New Hampshire">New Hampshire</option>
+                        <option value="New Jersey">New Jersey</option>
+                        <option value="New Mexico">New Mexico</option>
+                        <option value="New York" selected="">New York</option>
+                        <option value="North Carolina">North Carolina</option>
+                        <option value="North Dakota">North Dakota</option>
+                        <option value="Ohio">Ohio</option>
+                        <option value="Oregon">Oregon</option>
+                        <option value="Oklahoma">Oklahoma</option>
+                        <option value="Pennsylvania">Pennsylvania</option>
+                        <option value="Rhode Island">Rhode Island</option>
+                        <option value="South Carolina">South Carolina</option>
+                        <option value="South Dakota">South Dakota</option>
+                        <option value="Tennessee">Tennessee</option>
+                        <option value="Texas">Texas</option>
+                        <option value="Utah">Utah</option>
+                        <option value="Vermont">Vermont</option>
+                        <option value="Virginia">Virginia</option>
+                        <option value="Washington">Washington</option>
+                        <option value="Washington DC">Washington DC</option>
+                        <option value="West Virginia">West Virginia</option>
+                        <option value="Wisconsin">Wisconsin</option>
+                        <option value="Wyoming">Wyoming</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <button onclick = "taxCalculatorClick()" class="calculate-tax-button">Calculate Post Tax Salary </button>
+
+        <canvas id="myChart"></canvas>        
+
+        <div class = "results">
+            <div class="post-tax-salary">
+                <h3>Post Tax Salary</h3>
+                <div class="value" id="postTax">123</div>
+            </div>
+
+            <div class="total-tax">
+                <h3>Total Tax</h3>
+                <div class="value" id = "totalTax">1234</div>
+            </div>
+
+            <div class="total-federal-tax">
+                <h3>Total Federal Tax</h3>
+                <div class="value" id = "federalTax">12345</div>
+            </div>
+
+            <div class="total-state-tax">
+                <h3>Total State Tax</h3>
+                <div class="value" id = "stateTax">123456</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class = "tips" id = "tipsHeader" style="display:none">
+        <h2 class = "tips-title">Financial Tips</h2>
+
+        <p class = "advice">Given your post tax salary of $<span id="postTaxSalaryDesc"></span>,
+        it is probably wise for you to spend approximatley between <a href="https://fortune.com/recommends/article/how-much-of-your-income-should-go-toward-investing/">10% to 15%</a> of your post-tax income on stocks, 
+        it's never too late to start investing, after all approximatley <a href="https://news.gallup.com/poll/266807/percentage-americans-owns-stock.aspx">58% of Americans</a> already own stocks.
+        To assist with your potential future investments, an interactive chart is displayed below showing how capital gains tax 
+        varies from state to state.</p>
+
+        <div id="chartDiv" style="width: 100%; height: 400px;"></div>
+    </div>
+</body>
+
+
+<script src="https://code.jscharting.com/latest/jscharting.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/index.js"></script>
+</html>

@@ -1,0 +1,128 @@
+body{
+    background:rgb(142, 172, 173);
+}
+
+.title{ 
+    text-align:center
+}
+
+.tax-calculator {
+    font-family: "Robot", sans-serif;
+    width: 600px; 
+    margin: 24px auto;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 12px 50px -11px rgba(0, 0, 0, 0.541);
+    border-radius: 8px;
+    color:black;
+    overflow: hidden;
+}
+
+.tax-calculator, 
+.tax-calculator * {
+    box-sizing: border-box;
+}
+
+.tax-calculator .tax-calculator-title {
+    background:rgba(0, 217, 255, 0.541);
+    color: rgb(0, 0, 0);
+    text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #0fa,
+      0 0 82px #0fa,
+      0 0 92px #0fa,
+      0 0 102px #0fa,
+      0 0 151px #0fa;
+    padding: 20px;
+}
+
+.tax-calculator .tax-calculator-title h2{
+    margin-top: 0;
+}
+
+.tax-calculator form{
+    display: flex; 
+    gap: 35px;
+    justify-content: space-between;
+}
+
+.tax-calculator form input {
+    font-size: 20px; 
+    padding: 15px 25px;
+    width: 100%;
+}
+
+.tax-calculator .results {
+    display: flex; 
+    align-self: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.tax-calculator .results .value {
+    font-weight: 1000;
+    font-size:35px;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.541);
+}
+
+
+.tax-calculator .results .value::before {
+    font-size:25px;
+    margin-right: 15px;
+    content: "$";
+}
+
+.tax-calculator .calculate-tax-button {
+    margin: 24px;
+    margin-left: 150px;
+    background:#0fa;
+    font-size: 25px;
+    font-weight: 1000;
+    padding: 15px 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .tax-calculator {
+        width:90%;
+        max-width: 500px;
+    }
+
+    .tax-calculator form {
+        flex-direction: column;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 700px) {
+    .tips{
+        width:90%;
+        max-width: 500px;
+    }
+}
+
+.tips{
+    background: rgb(255, 255, 255);
+    font-family: "Robot", sans-serif;
+    width: 800px; 
+    margin: 24px auto;
+    box-shadow: 0 12px 50px -11px rgba(0, 0, 0, 0.541);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+
+.tips-title{
+    padding: 15px 15px;
+    text-align: center;
+}
+
+.advice{
+    font-size:18px;
+    font-family: "Robot", sans-serif;
+    text-align: center;
+    padding: 15px 15px;
+}
