@@ -80,6 +80,8 @@ calculateBtn.addEventListener("click", function(){
 
    if(amount <= 147000){
        socialSecurityTax = .062 * amount;
+   } else if (amount > 147000){
+      socialSecurityTax = .062 * 147000;
    }
 
    if(amount <= 200000){
