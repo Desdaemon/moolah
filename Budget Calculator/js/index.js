@@ -27,16 +27,14 @@ calculateBtn.addEventListener("click", function(){
    fedTax = 0; 
    socialSecurityTax = 0;
    medicareTax = 0; 
-
-   if(amount > 12950){
-      postDeductionAmount = amount - 12950;
-   } else {
-      alert("Enter an amount above the standard deduction of 12950!");
-      window.location.reload();
-   }
-
+   
    if(selectedFilingStatus == "Single"){
-
+      if(amount > 12950 && selectedFilingStatus == "Single"){
+         postDeductionAmount = amount - 12950;
+      } else {
+         alert("Enter an amount above the standard deduction of 12950 for single filers!");
+         window.location.reload();
+      } 
       if(postDeductionAmount <= 10275){
          fedTax = .10 * postDeductionAmount;
       } else if(postDeductionAmount >= 10276 && postDeductionAmount <= 41775){ 
@@ -55,7 +53,12 @@ calculateBtn.addEventListener("click", function(){
    } 
 
    if(selectedFilingStatus == "Married"){
-
+      if(amount > 25900){
+         postDeductionAmount = amount - 25900;
+      } else {
+         alert("Enter an amount above the standard deduction of 25900 for married filers!");
+         window.location.reload();
+      }
       if(postDeductionAmount <= 20550){
          fedTax = .10 * postDeductionAmount;
       } else if(postDeductionAmount >= 20551 && postDeductionAmount <= 83550){ 
